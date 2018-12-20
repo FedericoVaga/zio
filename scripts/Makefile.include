@@ -1,0 +1,10 @@
+ifdef src
+GIT_VERSION := $(shell cd $(src) ; git describe --dirty --long --tags)
+else
+GIT_VERSION := $(shell git describe --dirty --long --tags)
+endif
+
+
+ZIO_VERSION := -D__ZIO_MAJOR_VERSION=$(shell echo $(GIT_VERSION) | cut -d '-' -f 2 | cut -d '.' -f 1; )
+ZIO_VERSION += -D__ZIO_MINOR_VERSION=$(shell echo $(GIT_VERSION) | cut -d '-' -f 2 | cut -d '.' -f 2; )
+ZIO_VERSION += -D__ZIO_PATCH_VERSION=$(shell echo $(GIT_VERSION) | cut -d '-' -f 3)

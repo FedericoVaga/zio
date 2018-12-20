@@ -6,9 +6,10 @@ endif
 endif
 
 ccflags-y += -DADDITIONAL_VERSIONS="$(SUBMODULE_VERSIONS)"
-
-ccflags-y += -I$(src)/../include/ -DGIT_VERSION=\"$(GIT_VERSION)\"
+ccflags-y += -I$(src)/../../../include/ -DGIT_VERSION=\"$(GIT_VERSION)\"
 ccflags-$(CONFIG_ZIO_DEBUG) += -DDEBUG
 
-# zio-buf-kmalloc.o is now part of zio-core
-obj-m = zio-buf-vmalloc.o
+# zio-trig-user.o is now part of zio-core
+obj-m = zio-trig-timer.o
+obj-m += zio-trig-irq.o
+obj-$(CONFIG_HIGH_RES_TIMERS) += zio-trig-hrt.o

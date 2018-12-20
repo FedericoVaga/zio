@@ -1,20 +1,13 @@
+# SPDX-License-Identifier: GPL-2.0
 
-# build user-space tools for zio
+M ?= $(shell /bin/pwd)/../
 
-CFLAGS = -I$(M)/include/ -Wall $(ZIO_VERSION) $(EXTRACFLAGS)
-CFLAGS += -DGIT_VERSION=\"$(GIT_VERSION)\"
+all: zio_all
 
-CC ?= $(CROSS_COMPILE)gcc
+clean: zio_clean
 
-progs := zio-dump
-progs += zio-cat-file
-progs += test-dtc
+zio_all:
+	$(MAKE) -C zio M=$(M) all
 
-# The following is ugly, please forgive me by now
-user: $(progs)
-
-clean:
-	rm -f $(progs) *~ *.o
-
-%: %.c
-	$(CC) $(CFLAGS) $^ -o $@
+zio_clean:
+	$(MAKE) -C zio M=$(M) clean
